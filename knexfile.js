@@ -3,11 +3,11 @@
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
       database: 'reddice',
-      user:     'rem',
-      password: ''
+      user:     'root',
+      password: 'P@ssw0rd!'
     },
     pool: {
       min: 2,
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
       database: 'my_db',
       user:     'username',
@@ -35,7 +35,7 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
       database: 'my_db',
       user:     'username',
