@@ -1,6 +1,6 @@
 import express from 'express';
 import commonValidations from '../shared/validations/signup';
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
@@ -9,11 +9,13 @@ let router = express.Router();
 
 function validateInput(data, otherValidations) {
   let { errors } = otherValidations(data);
-
+  console.log('data:', data);
+  console.log('errors:', errors);
   return User.query({
     where: { email: data.email },
     orWhere: { username: data.username }
   }).fetch().then(user => {
+    console.log('user:', user);
     if (user) {
       if (user.get('username') === data.username) {
         errors.username = 'There is user with such username';
@@ -46,7 +48,7 @@ router.post('/', (req, res) => {
   validateInput(req.body, commonValidations).then(({ errors, isValid }) => {
     if (isValid) {
       const { username, password, timezone, email } = req.body;
-      const password_digest = bcrypt.hashSync(password, 10);
+      const password_digest = password; //bcrypt.hashSync(password, 10);
 
       User.forge({
         username, timezone, email, password_digest
